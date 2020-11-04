@@ -65,6 +65,7 @@ protected:
   pluginlib::ClassLoader<nav_core2::GlobalPlanner> planner_loader_;
   boost::shared_ptr<nav_core2::GlobalPlanner> planner_;
   ros::Publisher path_pub_;
+  ros::Publisher goal_occupied_pub_;
 
   TFListenerPtr tf_;
 

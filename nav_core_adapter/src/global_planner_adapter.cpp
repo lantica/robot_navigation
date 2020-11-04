@@ -67,6 +67,7 @@ void GlobalPlannerAdapter::initialize(std::string name, costmap_2d::Costmap2DROS
   planner_ = planner_loader_.createInstance(planner_name);
   planner_->initialize(private_nh, planner_loader_.getName(planner_name), tf_, costmap_adapter_);
   path_pub_ = private_nh.advertise<nav_msgs::Path>("plan", 1);
+  goal_occupied_pub_ = private_nh.advertise<std_msgs::String>("/goal_occupied", 10);
 }
 
 bool GlobalPlannerAdapter::makePlan(const geometry_msgs::PoseStamped& start,
@@ -86,6 +87,9 @@ bool GlobalPlannerAdapter::makePlan(const geometry_msgs::PoseStamped& start,
   catch (nav_core2::PlannerException& e)
   {
     ROS_ERROR_NAMED("GlobalPlannerAdapter", "makePlan Exception: %s", e.what());
+    std_msgs::StringPtr str(new std_msgs::String);
+    str->data = "Goal occupied!";
+    goal_occupied_pub_.publish(str);
     return false;
   }
 }
