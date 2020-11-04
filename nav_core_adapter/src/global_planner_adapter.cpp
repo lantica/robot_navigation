@@ -38,6 +38,7 @@
 #include <nav_2d_utils/tf_help.h>
 #include <nav_core2/exceptions.h>
 #include <pluginlib/class_list_macros.h>
+#include <std_msgs/String.h>
 #include <memory>
 #include <string>
 #include <vector>
@@ -87,8 +88,8 @@ bool GlobalPlannerAdapter::makePlan(const geometry_msgs::PoseStamped& start,
   catch (nav_core2::PlannerException& e)
   {
     ROS_ERROR_NAMED("GlobalPlannerAdapter", "makePlan Exception: %s", e.what());
-    std_msgs::StringPtr str(new std_msgs::String);
-    str->data = "Goal occupied!";
+    std_msgs::String msg;
+    msg.data = "Goal occupied!";
     goal_occupied_pub_.publish(str);
     return false;
   }
