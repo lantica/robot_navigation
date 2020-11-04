@@ -88,9 +88,11 @@ bool GlobalPlannerAdapter::makePlan(const geometry_msgs::PoseStamped& start,
   catch (nav_core2::PlannerException& e)
   {
     ROS_ERROR_NAMED("GlobalPlannerAdapter", "makePlan Exception: %s", e.what());
-    std_msgs::String msg;
-    msg.data = "Goal occupied!";
-    goal_occupied_pub_.publish(msg);
+    if (e.getResultCode() == 10) {
+      std_msgs::String msg;
+      msg.data = "Goal occupied!";
+      goal_occupied_pub_.publish(msg);
+    }
     return false;
   }
 }
