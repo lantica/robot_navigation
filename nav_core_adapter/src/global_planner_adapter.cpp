@@ -90,7 +90,7 @@ bool GlobalPlannerAdapter::makePlan(const geometry_msgs::PoseStamped& start,
     ROS_ERROR_NAMED("GlobalPlannerAdapter", "makePlan Exception: %s", e.what());
     if (e.getResultCode() == 10) {
       std_msgs::String msg;
-      msg.data = ros::this_node::getNamespace();
+      msg.data = ros::this_node::getName();
       goal_occupied_pub_.publish(msg);
     }
     return false;
