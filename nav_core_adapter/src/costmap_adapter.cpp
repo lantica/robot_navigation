@@ -89,6 +89,7 @@ void CostmapAdapter::reset()
 void CostmapAdapter::update()
 {
   info_ = infoFromCostmap(costmap_ros_);
+  costmap_ = costmap_ros_->getCostmap();
   if (!costmap_ros_->isCurrent())
     throw nav_core2::CostmapDataLagException("Costmap2DROS is out of date somehow.");
 }

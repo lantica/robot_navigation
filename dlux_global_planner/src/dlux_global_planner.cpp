@@ -103,6 +103,7 @@ bool DluxGlobalPlanner::isPlanValid(const nav_2d_msgs::Path2D& path) const
 nav_2d_msgs::Path2D DluxGlobalPlanner::makePlan(const nav_2d_msgs::Pose2DStamped& start,
                                                 const nav_2d_msgs::Pose2DStamped& goal)
 {
+  costmap_->update();
   if (potential_grid_.getInfo() != costmap_->getInfo())
     potential_grid_.setInfo(costmap_->getInfo());
 
